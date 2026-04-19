@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GoFix – Policies</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f7fa; color: #222; }
+    header {
+      background: #3674C6; color: white;
+      padding: 24px 32px;
+    }
+    header h1 { font-size: 26px; }
+    header p { font-size: 14px; margin-top: 4px; opacity: 0.85; }
+    .tabs {
+      display: flex; background: #2a5ea8;
+    }
+    .tab {
+      padding: 14px 32px; cursor: pointer;
+      color: rgba(255,255,255,0.7); font-size: 15px;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      color: white; border-bottom: 3px solid white;
+      font-weight: bold;
+    }
+    .container { max-width: 860px; margin: 40px auto; padding: 0 24px 60px; }
+    .section { display: none; }
+    .section.active { display: block; }
+    .card {
+      background: white; border-radius: 10px;
+      padding: 36px 40px; box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .doc-title {
+      font-size: 24px; font-weight: bold;
+      color: #3674C6; margin-bottom: 4px;
+    }
+    .updated {
+      font-size: 13px; color: #888; margin-bottom: 20px;
+    }
+    .intro {
+      font-size: 15px; color: #444; line-height: 1.7;
+      margin-bottom: 28px; padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    h2 {
+      font-size: 16px; font-weight: bold;
+      color: #3674C6; margin: 28px 0 10px;
+    }
+    p { font-size: 14px; color: #333; line-height: 1.75; margin-bottom: 8px; }
+    ul { padding-left: 20px; margin: 8px 0; }
+    ul li {
+      font-size: 14px; color: #333;
+      line-height: 1.75; margin-bottom: 6px;
+    }
+    .highlight {
+      background: #eef4ff; border-left: 4px solid #3674C6;
+      padding: 14px 18px; border-radius: 4px;
+      margin: 12px 0; font-size: 14px; color: #333; line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>GoFix – Home Services</h1>
+  <p>Legal Policies</p>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('privacy')">Privacy Policy</div>
+  <div class="tab" onclick="showTab('terms')">Terms &amp; Conditions</div>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════════ PRIVACY POLICY ═══════════════ -->
+  <div class="section active" id="privacy">
+    <div class="card">
+      <div class="doc-title">Privacy Policy</div>
+      <div class="updated">Last Updated: June 2025</div>
+      <p class="intro">
+        GoFix ("we", "our", "the app") respects your privacy. This Privacy Policy
+        explains what information we collect, how we use it, and your rights
+        regarding your data.
+      </p>
+
+      <h2>1. Information We Collect</h2>
+      <p>When you register and use GoFix, we collect:</p>
+      <p><strong>From all users:</strong></p>
+      <ul>
+        <li>Full Name</li>
+        <li>Email Address</li>
+        <li>Phone Number</li>
+        <li>Profile Picture (optional)</li>
+        <li>Location (to match with nearby Technicians)</li>
+        <li>Device information for app functionality</li>
+        <li>Complaints or feedback submitted through the app</li>
+      </ul>
+      <p><strong>From Technicians only:</strong></p>
+      <ul>
+        <li>CNIC (National Identity Card) photograph — required for identity verification before account approval</li>
+      </ul>
+
+      <h2>2. CNIC Data – Collection &amp; Use</h2>
+      <p>GoFix collects a photograph of the Technician's CNIC strictly for identity verification purposes.</p>
+      <ul>
+        <li>CNIC data is used only to confirm that the Technician is a real, identifiable individual before they are allowed to offer services.</li>
+        <li>CNIC information is stored securely using Firebase and is accessible only to GoFix Admin.</li>
+        <li>CNIC data will NOT be sold, rented, or shared with any third party, except where required by law or in cases of serious dispute or fraud.</li>
+        <li>Technicians may request deletion of their CNIC data by deleting their account. However, in active dispute or investigation cases, data may be retained for a limited period.</li>
+      </ul>
+
+      <h2>3. Commission &amp; Financial Data</h2>
+      <p>GoFix does NOT collect, store, or process any payment or banking information from users.</p>
+      <ul>
+        <li>All payments happen directly between Customers and Technicians.</li>
+        <li>After the 3-month free trial, GoFix charges Technicians a 10% commission per completed service. This is a platform usage fee and is separate from any payment made by the Customer.</li>
+        <li>No bank account, card, or wallet information is stored in GoFix.</li>
+      </ul>
+
+      <h2>4. How We Use Your Information</h2>
+      <p>Your information is used to:</p>
+      <ul>
+        <li>Create and manage your GoFix account</li>
+        <li>Verify Technician identity through CNIC</li>
+        <li>Connect Customers with available Technicians nearby</li>
+        <li>Display your profile to the relevant party during bookings</li>
+        <li>Handle complaints and resolve disputes between users</li>
+        <li>Improve the performance and features of the app</li>
+      </ul>
+
+      <h2>5. Data Sharing</h2>
+      <p>GoFix does NOT sell your personal data to third parties.</p>
+      <ul>
+        <li>When a service is booked, basic profile information (name, contact) is shared between the Customer and Technician to facilitate the service.</li>
+        <li>In the event of a complaint, relevant user information may be reviewed by the Admin to take appropriate action.</li>
+        <li>CNIC data is strictly accessible to Admin only and is never shared with Customers or other Technicians.</li>
+      </ul>
+
+      <h2>6. Data Security</h2>
+      <p>We use Firebase (Google) as our backend, which applies industry-standard security measures to protect your data. However, as a student project, GoFix does not guarantee absolute security and is not liable for any data breaches caused by third-party services.</p>
+
+      <h2>7. Location Data</h2>
+      <p>GoFix may request access to your device location to help match you with nearby Technicians. Location data is used only within the app and is not shared externally or stored permanently.</p>
+
+      <h2>8. User Rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Update or correct your profile information at any time</li>
+        <li>Request deletion of your account and associated data</li>
+        <li>Request information about what data we hold about you</li>
+        <li>Withdraw consent by discontinuing use of the app</li>
+      </ul>
+
+      <h2>9. Children's Privacy</h2>
+      <p>GoFix is not intended for users under the age of 18. We do not knowingly collect data from minors.</p>
+
+      <h2>10. Student Project Notice</h2>
+      <p>GoFix is an academic student project and is not a registered commercial entity. This Privacy Policy is provided in good faith for educational purposes. We strive to handle all user data responsibly.</p>
+
+      <h2>11. Changes to this Policy</h2>
+      <p>We may update this Privacy Policy from time to time. Any changes will be reflected in the app. Continued use of GoFix after an update constitutes your acceptance of the revised policy.</p>
+
+      <h2>12. Contact</h2>
+      <p>If you have any questions about this Privacy Policy, please reach out through the GoFix app support section.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════ TERMS & CONDITIONS ═══════════════ -->
+  <div class="section" id="terms">
+    <div class="card">
+      <div class="doc-title">Terms &amp; Conditions</div>
+      <div class="updated">Last Updated: June 2025</div>
+      <p class="intro">
+        Welcome to GoFix. By creating an account and using our application,
+        you agree to the following Terms &amp; Conditions. Please read them
+        carefully before proceeding.
+      </p>
+
+      <h2>1. About GoFix</h2>
+      <p>GoFix is a platform developed as a student project that connects Customers with skilled Technicians for home repair, maintenance, and other services. GoFix acts solely as an intermediary and is NOT a service provider itself.</p>
+
+      <h2>2. Eligibility</h2>
+      <p>You must be at least 18 years old to use this application. By registering, you confirm that all information provided is accurate and truthful.</p>
+
+      <h2>3. Technician Verification – CNIC Requirement</h2>
+      <p>To ensure the safety and trust of all users, every Technician registering on GoFix is required to submit a clear photograph of their valid Pakistani National Identity Card (CNIC) during registration.</p>
+      <ul>
+        <li>The CNIC is collected solely for identity verification purposes.</li>
+        <li>By submitting your CNIC, you confirm that the document is genuine and belongs to you. Submitting a fake, forged, or altered CNIC is strictly prohibited and will result in a permanent account ban.</li>
+        <li>GoFix stores this information securely and will not share it with any third party except where required by law or for dispute resolution.</li>
+        <li>GoFix reserves the right to reject any Technician registration if the submitted CNIC cannot be verified or appears invalid.</li>
+      </ul>
+
+      <h2>4. Free Trial Period &amp; Commission Policy</h2>
+      <div class="highlight">
+        FREE TRIAL (First 3 Months): No commission will be charged on any completed service for the first 3 months after a Technician account is approved.
+      </div>
+      <div class="highlight">
+        AFTER FREE TRIAL: Once the 3-month trial ends, GoFix will charge a <strong>10% commission fee</strong> on every service completed through the app.
+      </div>
+      <ul>
+        <li>The 10% commission is calculated on the total service amount agreed between the Customer and Technician.</li>
+        <li>Continued use of GoFix after the trial period automatically constitutes acceptance of the 10% commission policy.</li>
+        <li>GoFix reserves the right to revise the commission rate in the future, with prior notice given to all active Technicians.</li>
+      </ul>
+
+      <h2>5. Platform Role – Limitation of Liability</h2>
+      <p>GoFix is a connection platform ONLY. We do not employ Technicians, supervise their work, or guarantee the quality of any service provided.</p>
+      <ul>
+        <li>GoFix is NOT responsible for any accident, injury, property damage, loss, or harm that occurs during or after a service visit.</li>
+        <li>Both the Customer and the Technician are solely responsible for their own safety and must take appropriate precautions.</li>
+        <li>GoFix bears NO liability for any incident, accident, or mishap that occurs between a Customer and a Technician. Each party agrees to this limitation upon accepting these Terms.</li>
+      </ul>
+
+      <h2>6. Payments</h2>
+      <p>GoFix does NOT process, hold, or guarantee any payments between Customers and Technicians.</p>
+      <ul>
+        <li>All payment transactions are agreed upon and handled directly between the Customer and the Technician.</li>
+        <li>GoFix is NOT responsible for any payment disputes, fraud, non-payment, or overcharging.</li>
+        <li>In case of a payment-related dispute, the affected party may file a complaint through the app. After 2–3 verified complaints against a Technician, the account may be reviewed and blocked by the Admin.</li>
+      </ul>
+
+      <h2>7. Complaints &amp; Account Actions</h2>
+      <ul>
+        <li>Users may submit complaints against a Technician for misconduct, fraud, or unprofessional behavior.</li>
+        <li>Technicians who receive 2 or more verified complaints may have their accounts suspended or permanently blocked at the discretion of the Admin.</li>
+        <li>GoFix reserves the right to remove any user from the platform for violation of these Terms.</li>
+      </ul>
+
+      <h2>8. User Responsibilities</h2>
+      <p><strong>As a Customer, you agree to:</strong></p>
+      <ul>
+        <li>Provide accurate information when booking a service.</li>
+        <li>Ensure a safe environment for the Technician during the visit.</li>
+        <li>Make agreed payments directly to the Technician.</li>
+      </ul>
+      <p><strong>As a Technician, you agree to:</strong></p>
+      <ul>
+        <li>Submit a valid and genuine CNIC for identity verification.</li>
+        <li>Provide services honestly and professionally.</li>
+        <li>Charge only the pre-agreed amount for any service.</li>
+        <li>Pay the applicable 10% commission to GoFix after the free trial ends.</li>
+        <li>Take personal responsibility for your own safety and conduct.</li>
+      </ul>
+
+      <h2>9. Student Project Disclaimer</h2>
+      <p>GoFix is developed as a student academic project. It is not a registered business and does not carry commercial insurance or legal liability for any services arranged through the platform. Users engage with the app at their own risk.</p>
+
+      <h2>10. Changes to Terms</h2>
+      <p>GoFix reserves the right to update these Terms &amp; Conditions at any time. Continued use of the app after changes constitutes acceptance of the updated terms.</p>
+
+      <h2>11. Contact</h2>
+      <p>For any questions or concerns regarding these Terms, please contact us through the GoFix app support section.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showTab(tab) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(tab).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
