@@ -1,220 +1,641 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GoFix – Delete Account</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #f5f7fa; color: #222; }
-    header {
-      background: #3674C6; color: white;
-      padding: 24px 32px;
-    }
-    header h1 { font-size: 26px; }
-    header p { font-size: 14px; margin-top: 4px; opacity: 0.85; }
-    .container { max-width: 860px; margin: 40px auto; padding: 0 24px 60px; }
-    .card {
-      background: white; border-radius: 10px;
-      padding: 36px 40px; box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    }
-    .doc-title {
-      font-size: 24px; font-weight: bold;
-      color: #3674C6; margin-bottom: 4px;
-    }
-    .updated { font-size: 13px; color: #888; margin-bottom: 20px; }
-    .intro {
-      font-size: 15px; color: #444; line-height: 1.7;
-      margin-bottom: 28px; padding-bottom: 20px;
-      border-bottom: 1px solid #eee;
-    }
-    h2 {
-      font-size: 16px; font-weight: bold;
-      color: #3674C6; margin: 28px 0 10px;
-    }
-    p { font-size: 14px; color: #333; line-height: 1.75; margin-bottom: 8px; }
-    ul { padding-left: 20px; margin: 8px 0; }
-    ul li { font-size: 14px; color: #333; line-height: 1.75; margin-bottom: 6px; }
-    .warning {
-      background: #fff4e5; border-left: 4px solid #f59e0b;
-      padding: 14px 18px; border-radius: 4px;
-      margin: 16px 0; font-size: 14px; color: #333; line-height: 1.7;
-    }
-    .step-box {
-      background: #f8faff; border: 1px solid #dce8fb;
-      border-radius: 8px; padding: 20px 24px; margin: 16px 0;
-    }
-    .step {
-      display: flex; align-items: flex-start; margin-bottom: 14px;
-    }
-    .step:last-child { margin-bottom: 0; }
-    .step-num {
-      background: #3674C6; color: white;
-      border-radius: 50%; width: 28px; height: 28px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: bold;
-      flex-shrink: 0; margin-right: 14px; margin-top: 2px;
-    }
-    .step-text { font-size: 14px; color: #333; line-height: 1.7; }
-    .contact-cards {
-      display: flex; flex-wrap: wrap; gap: 16px; margin: 16px 0;
-    }
-    .contact-card {
-      flex: 1; min-width: 200px;
-      border: 1px solid #dce8fb; border-radius: 10px;
-      padding: 20px; text-align: center;
-      text-decoration: none; color: #333;
-      transition: box-shadow 0.2s;
-    }
-    .contact-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
-    .contact-card .icon { font-size: 32px; margin-bottom: 8px; }
-    .contact-card .name { font-weight: bold; font-size: 15px; margin-bottom: 4px; }
-    .contact-card .handle { font-size: 13px; color: #3674C6; }
-    .contact-card.instagram { border-color: #e1306c; }
-    .contact-card.instagram .name { color: #e1306c; }
-    .contact-card.facebook { border-color: #1877f2; }
-    .contact-card.facebook .name { color: #1877f2; }
-    .contact-card.gmail { border-color: #ea4335; }
-    .contact-card.gmail .name { color: #ea4335; }
-    .data-table { width: 100%; border-collapse: collapse; margin: 14px 0; }
-    .data-table th {
-      background: #3674C6; color: white;
-      padding: 10px 14px; text-align: left; font-size: 14px;
-    }
-    .data-table td {
-      padding: 10px 14px; font-size: 14px; color: #333;
-      border-bottom: 1px solid #eee;
-    }
-    .data-table tr:last-child td { border-bottom: none; }
-    .badge-deleted {
-      background: #fee2e2; color: #dc2626;
-      padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;
-    }
-    .badge-kept {
-      background: #fef9c3; color: #b45309;
-      padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;
-    }
-  </style>
-</head>
-<body>
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:gofix/main.dart';
 
-<header>
-  <h1>GoFix – Home Services</h1>
-  <p>Account Deletion Request</p>
-</header>
+class DeleteAccountScreen extends StatefulWidget {
+  const DeleteAccountScreen({Key? key}) : super(key: key);
 
-<div class="container">
-  <div class="card">
-    <div class="doc-title">Delete Account &amp; Data</div>
-    <div class="updated">Last Updated: June 2025</div>
-    <p class="intro">
-      GoFix – Home Services respects your right to delete your account and
-      associated data at any time. This page explains how to request account
-      deletion and what happens to your data after deletion.
-    </p>
+  @override
+  State<DeleteAccountScreen> createState() => _DeleteAccountScreenState();
+}
 
-    <div class="warning">
-      ⚠️ Account deletion is <strong>permanent and cannot be undone.</strong>
-      Once deleted, your account and all associated data will be permanently removed.
-    </div>
+class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
+  // ── Constants ─────────────────────────────────────────────────────────────
+  static const Color _primary = Color(0xFF3674C6);
+  static const Color _danger = Color(0xFFDC2626);
+  static const Color _dangerLight = Color(0xFFFEE2E2);
+  static const String _confirmWord = 'DELETE';
 
-    <h2>How to Request Account Deletion</h2>
-    <p>To delete your GoFix account, please contact us through any of the following platforms available in the <strong>Contact Us</strong> section of the GoFix app:</p>
+  // ── State ─────────────────────────────────────────────────────────────────
+  String? _selectedReason;
+  final TextEditingController _confirmController = TextEditingController();
+  final TextEditingController _detailController = TextEditingController();
+  bool _isProcessing = false;
+  bool _requestSent = false;
 
-    <div class="contact-cards">
-      <div class="contact-card instagram">
-        <div class="icon">📸</div>
-        <div class="name">Instagram</div>
-        <div class="handle">Send a DM on Instagram</div>
-      </div>
-      <div class="contact-card facebook">
-        <div class="icon">📘</div>
-        <div class="name">Facebook</div>
-        <div class="handle">Send a message on Facebook</div>
-      </div>
-      <div class="contact-card gmail">
-        <div class="icon">📧</div>
-        <div class="name">Gmail</div>
-        <div class="handle">Send an email</div>
-      </div>
-    </div>
+  // ── Deletion reasons ──────────────────────────────────────────────────────
+  final List<Map<String, dynamic>> _reasons = [
+    {
+      'icon': Icons.privacy_tip_outlined,
+      'title': 'Privacy Concerns',
+      'desc': 'I am worried about my personal data',
+    },
+    {
+      'icon': Icons.sentiment_dissatisfied_outlined,
+      'title': 'Not Satisfied',
+      'desc': 'Service quality did not meet my expectations',
+    },
+    {
+      'icon': Icons.swap_horiz_rounded,
+      'title': 'Switching App',
+      'desc': 'I am moving to a different platform',
+    },
+    {
+      'icon': Icons.do_not_disturb_alt_outlined,
+      'title': 'Too Many Notifications',
+      'desc': 'I receive too many unwanted messages',
+    },
+    {
+      'icon': Icons.account_circle_outlined,
+      'title': 'Duplicate Account',
+      'desc': 'I have another account I prefer to use',
+    },
+    {
+      'icon': Icons.more_horiz_rounded,
+      'title': 'Other Reason',
+      'desc': 'Something else not listed here',
+    },
+  ];
 
-    <h2>What to Include in Your Request</h2>
-    <div class="step-box">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-text">Open the <strong>GoFix</strong> app and go to <strong>Contact Us</strong>.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-text">Choose any platform — Instagram, Facebook, or Gmail.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-text">Send a message with subject or title: <strong>"Delete My Account"</strong></div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-text">Include your <strong>registered email address</strong> so we can identify your account.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">5</div>
-        <div class="step-text">Our team will process your request and permanently delete your account within <strong>7 business days</strong>.</div>
-      </div>
-    </div>
+  @override
+  void dispose() {
+    _confirmController.dispose();
+    _detailController.dispose();
+    super.dispose();
+  }
 
-    <h2>What Data is Deleted</h2>
-    <table class="data-table">
-      <tr>
-        <th>Data Type</th>
-        <th>Status</th>
-      </tr>
-      <tr>
-        <td>Full Name</td>
-        <td><span class="badge-deleted">Deleted</span></td>
-      </tr>
-      <tr>
-        <td>Email Address</td>
-        <td><span class="badge-deleted">Deleted</span></td>
-      </tr>
-      <tr>
-        <td>Phone Number</td>
-        <td><span class="badge-deleted">Deleted</span></td>
-      </tr>
-      <tr>
-        <td>Profile Picture</td>
-        <td><span class="badge-deleted">Deleted</span></td>
-      </tr>
-      <tr>
-        <td>Location Data</td>
-        <td><span class="badge-deleted">Deleted</span></td>
-      </tr>
-      <tr>
-        <td>Booking History</td>
-        <td><span class="badge-deleted">Deleted</span></td>
-      </tr>
-      <tr>
-        <td>CNIC Photograph (Technicians only)</td>
-        <td><span class="badge-kept">Retained up to 90 days if under active dispute</span></td>
-      </tr>
-      <tr>
-        <td>Complaint Records</td>
-        <td><span class="badge-kept">Retained up to 90 days for safety purposes</span></td>
-      </tr>
-    </table>
+  // ── Submit deletion request ───────────────────────────────────────────────
+  Future<void> _submitDeletionRequest() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
 
-    <h2>Data Retention Period</h2>
-    <ul>
-      <li>Most data is deleted immediately upon account deletion.</li>
-      <li>CNIC photographs may be retained for up to <strong>90 days</strong> if there is an active dispute or investigation involving the Technician.</li>
-      <li>Complaint records may be retained for up to <strong>90 days</strong> for safety and fraud prevention purposes.</li>
-      <li>After this period, all retained data will be permanently deleted.</li>
-    </ul>
+    setState(() => _isProcessing = true);
 
-    <h2>Contact</h2>
-    <p>For any questions about account deletion or your data, please reach out through the <strong>Contact Us</strong> section in the GoFix app via Instagram, Facebook, or Gmail.</p>
-  </div>
-</div>
+    try {
+      // Save deletion request to Firestore
+      await FirebaseFirestore.instance
+          .collection('account_deletion_requests')
+          .doc(user.uid)
+          .set({
+        'userId': user.uid,
+        'email': user.email,
+        'reason': _selectedReason,
+        'details': _detailController.text.trim(),
+        'requestedAt': FieldValue.serverTimestamp(),
+        'status': 'pending',
+      });
 
-</body>
-</html>
+      // Sign out after request
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+      await FirebaseAuth.instance.signOut();
+
+      if (mounted) {
+        setState(() {
+          _isProcessing = false;
+          _requestSent = true;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isProcessing = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Something went wrong. Please try again.'),
+            backgroundColor: _danger,
+          ),
+        );
+      }
+    }
+  }
+
+  // ── Show final confirmation dialog ────────────────────────────────────────
+  void _showConfirmDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogCtx) {
+        return StatefulBuilder(builder: (ctx, setDialogState) {
+          return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            title: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: _dangerLight,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child:
+                      const Icon(Icons.delete_forever, color: _danger, size: 24),
+                ),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    'Confirm Deletion',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF7ED),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: const Color(0xFFFED7AA)),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Icon(Icons.warning_amber_rounded,
+                          color: Color(0xFFF59E0B), size: 20),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Your account will be permanently deleted within 7 working days. This action cannot be undone.',
+                          style: TextStyle(fontSize: 13, height: 1.5),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                RichText(
+                  text: const TextSpan(
+                    style: TextStyle(
+                        fontSize: 13, color: Colors.black87, height: 1.5),
+                    children: [
+                      TextSpan(text: 'Type '),
+                      TextSpan(
+                        text: 'DELETE',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: _danger,
+                          letterSpacing: 1.5,
+                        ),
+                      ),
+                      TextSpan(text: ' below to confirm:'),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: _confirmController,
+                  onChanged: (_) => setDialogState(() {}),
+                  textCapitalization: TextCapitalization.characters,
+                  decoration: InputDecoration(
+                    hintText: 'Type DELETE here',
+                    hintStyle:
+                        TextStyle(color: Colors.grey.shade400, fontSize: 14),
+                    filled: true,
+                    fillColor: Colors.grey.shade50,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: _danger, width: 1.5),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 12),
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  _confirmController.clear();
+                  Navigator.pop(dialogCtx);
+                },
+                child: const Text('Cancel',
+                    style: TextStyle(color: Colors.grey, fontSize: 14)),
+              ),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                child: ElevatedButton(
+                  onPressed:
+                      _confirmController.text.trim().toUpperCase() ==
+                              _confirmWord
+                          ? () {
+                              Navigator.pop(dialogCtx);
+                              _submitDeletionRequest();
+                            }
+                          : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _danger,
+                    disabledBackgroundColor: Colors.grey.shade300,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 12),
+                  ),
+                  child: const Text('Delete My Account',
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                ),
+              ),
+            ],
+          );
+        });
+      },
+    );
+  }
+
+  // ── UI ────────────────────────────────────────────────────────────────────
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F7FA),
+      appBar: AppBar(
+        backgroundColor: _primary,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'Delete Account',
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+        ),
+      ),
+      body: _isProcessing
+          ? _buildProcessingView()
+          : _requestSent
+              ? _buildSuccessView()
+              : _buildFormView(),
+    );
+  }
+
+  // ── Processing overlay ────────────────────────────────────────────────────
+  Widget _buildProcessingView() {
+    return const Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(color: _danger),
+          SizedBox(height: 20),
+          Text(
+            'Submitting your request...',
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── Success screen ────────────────────────────────────────────────────────
+  Widget _buildSuccessView() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: _dangerLight,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.check_circle_outline,
+                  color: _danger, size: 64),
+            ),
+            const SizedBox(height: 28),
+            const Text(
+              'Request Submitted',
+              style: TextStyle(
+                  fontSize: 24, fontWeight: FontWeight.bold, color: _danger),
+            ),
+            const SizedBox(height: 14),
+            const Text(
+              'Your account deletion request has been received. Your account will be permanently deleted within 7 working days.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 15, color: Color(0xFF555555), height: 1.6),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'You have been signed out.',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            ),
+            const SizedBox(height: 36),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AuthWrapper()),
+                    (route) => false,
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primary,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+                child: const Text('Go to Login',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ── Main form ─────────────────────────────────────────────────────────────
+  Widget _buildFormView() {
+    final bool canProceed = _selectedReason != null;
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ── Warning banner ─────────────────────────────────────────────
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: _dangerLight,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: const Color(0xFFFCA5A5)),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(Icons.delete_forever, color: _danger, size: 28),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'This action is permanent',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: _danger),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Once deleted, your account, bookings, and all personal data will be permanently removed and cannot be recovered.',
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Color(0xFF7F1D1D),
+                            height: 1.5),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 28),
+
+          // ── What will be deleted ───────────────────────────────────────
+          const Text(
+            'What will be deleted',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 12),
+          _buildDataItem(Icons.person_outline, 'Profile & personal information'),
+          _buildDataItem(Icons.email_outlined, 'Email address & phone number'),
+          _buildDataItem(Icons.history_rounded, 'Booking history'),
+          _buildDataItem(Icons.image_outlined, 'Profile picture'),
+          _buildDataItem(Icons.location_on_outlined, 'Location data'),
+
+          const SizedBox(height: 8),
+          Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              color: const Color(0xFFFFFBEB),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: const Color(0xFFFDE68A)),
+            ),
+            child: Row(
+              children: const [
+                Icon(Icons.info_outline,
+                    color: Color(0xFFD97706), size: 18),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    'Complaint records & CNIC photos (if applicable) may be retained up to 90 days for safety purposes.',
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF92400E),
+                        height: 1.5),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 28),
+
+          // ── Reason selection ───────────────────────────────────────────
+          const Text(
+            'Why do you want to delete your account?',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 4),
+          const Text(
+            'Please select a reason to continue.',
+            style: TextStyle(fontSize: 13, color: Colors.grey),
+          ),
+          const SizedBox(height: 14),
+
+          ...(_reasons.map((reason) => _buildReasonTile(reason))).toList(),
+
+          // ── Optional details ───────────────────────────────────────────
+          if (_selectedReason != null) ...[
+            const SizedBox(height: 20),
+            const Text(
+              'Additional details (optional)',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(height: 8),
+            TextField(
+              controller: _detailController,
+              maxLines: 3,
+              maxLength: 300,
+              decoration: InputDecoration(
+                hintText: 'Tell us more about your reason...',
+                hintStyle:
+                    TextStyle(color: Colors.grey.shade400, fontSize: 14),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide:
+                      const BorderSide(color: _primary, width: 1.5),
+                ),
+                contentPadding: const EdgeInsets.all(14),
+              ),
+            ),
+          ],
+
+          const SizedBox(height: 32),
+
+          // ── Delete button ──────────────────────────────────────────────
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: canProceed ? _showConfirmDialog : null,
+              icon: const Icon(Icons.delete_forever, size: 20),
+              label: const Text(
+                'Delete My Account',
+                style:
+                    TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _danger,
+                disabledBackgroundColor: Colors.grey.shade300,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14)),
+                elevation: 0,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // ── Cancel button ──────────────────────────────────────────────
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: () => Navigator.pop(context),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: _primary,
+                side: const BorderSide(color: _primary),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14)),
+              ),
+              child: const Text(
+                'Cancel, Keep My Account',
+                style:
+                    TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+
+  // ── Helper: what-will-be-deleted row ─────────────────────────────────────
+  Widget _buildDataItem(IconData icon, String label) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: _danger),
+          const SizedBox(width: 10),
+          Text(label,
+              style: const TextStyle(fontSize: 14, color: Color(0xFF444444))),
+        ],
+      ),
+    );
+  }
+
+  // ── Helper: reason tile ───────────────────────────────────────────────────
+  Widget _buildReasonTile(Map<String, dynamic> reason) {
+    final bool isSelected = _selectedReason == reason['title'];
+    return GestureDetector(
+      onTap: () => setState(() => _selectedReason = reason['title']),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFFF0F5FF) : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected ? _primary : Colors.grey.shade200,
+            width: isSelected ? 1.8 : 1,
+          ),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: _primary.withOpacity(0.08),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  )
+                ]
+              : [],
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? _primary.withOpacity(0.12)
+                    : Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                reason['icon'] as IconData,
+                size: 20,
+                color: isSelected ? _primary : Colors.grey.shade500,
+              ),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    reason['title'] as String,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: isSelected ? _primary : Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    reason['desc'] as String,
+                    style: TextStyle(
+                        fontSize: 12, color: Colors.grey.shade500),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              isSelected
+                  ? Icons.radio_button_checked
+                  : Icons.radio_button_unchecked,
+              color: isSelected ? _primary : Colors.grey.shade400,
+              size: 22,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
