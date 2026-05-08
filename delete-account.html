@@ -13,12 +13,12 @@
       --red-dark:   #B91C1C;
       --red-light:  #FEF2F2;
       --red-border: #FECACA;
-      --orange:     #F97316;
-      --orange-bg:  #FFF7ED;
-      --orange-border: #FED7AA;
       --blue:       #2563EB;
       --blue-light: #EFF6FF;
       --blue-border:#BFDBFE;
+      --orange:     #F97316;
+      --orange-bg:  #FFF7ED;
+      --orange-border: #FED7AA;
       --green:      #16A34A;
       --gray-50:    #F9FAFB;
       --gray-100:   #F3F4F6;
@@ -29,9 +29,6 @@
       --gray-700:   #374151;
       --gray-800:   #1F2937;
       --gray-900:   #111827;
-      --shadow-sm:  0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md:  0 4px 12px rgba(0,0,0,0.1);
-      --shadow-lg:  0 10px 40px rgba(0,0,0,0.15);
       --radius:     12px;
       --radius-sm:  8px;
     }
@@ -41,6 +38,20 @@
       background: #F5F7FA;
       color: var(--gray-900);
       min-height: 100vh;
+    }
+
+    /* ── Logo Section ── */
+    .logo-header {
+      text-align: center;
+      padding: 30px 20px 10px;
+      background: white;
+    }
+    .app-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
     /* ── AppBar ── */
@@ -65,10 +76,7 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 18px;
       color: var(--gray-800);
-      transition: background 0.15s;
-      flex-shrink: 0;
     }
-    .appbar-back:hover { background: var(--gray-200); }
     .appbar-title {
       font-size: 17px;
       font-weight: 700;
@@ -76,646 +84,205 @@
       flex: 1;
       text-align: center;
     }
-    .appbar-spacer { width: 36px; flex-shrink: 0; }
+    .appbar-spacer { width: 36px; }
+
+    /* ── Instructions ── */
+    .instruction-card {
+      background: var(--blue-light);
+      border: 1px solid var(--blue-border);
+      padding: 16px;
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+    }
+    .instruction-card h4 {
+      color: var(--blue);
+      font-size: 14px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .instruction-card ol {
+      padding-left: 20px;
+      font-size: 13px;
+      color: #1E40AF;
+      line-height: 1.6;
+    }
 
     /* ── Layout ── */
     .page { max-width: 520px; margin: 0 auto; padding: 20px 16px 60px; }
 
-    /* ── Cards / Banners ── */
     .banner {
       border-radius: var(--radius);
       padding: 14px 16px;
       display: flex;
       gap: 10px;
-      align-items: flex-start;
       margin-bottom: 20px;
+      border: 1px solid;
     }
-    .banner-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-    .banner-text { font-size: 13px; line-height: 1.6; }
-    .banner-title { font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+    .banner.red { background: var(--red-light); border-color: var(--red-border); color: #7F1D1D; }
+    .banner-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+    .banner-text { font-size: 13px; line-height: 1.5; }
 
-    .banner.red   { background: var(--red-light);   border: 1px solid var(--red-border);     }
-    .banner.blue  { background: var(--blue-light);  border: 1px solid var(--blue-border);    }
-    .banner.orange{ background: var(--orange-bg);   border: 1px solid var(--orange-border);  }
+    .section-label { font-size: 15px; font-weight: 700; color: var(--gray-800); margin-bottom: 10px; margin-top: 20px; }
+    .section-sub { font-size: 12px; color: var(--gray-400); margin-top: -6px; margin-bottom: 10px; }
 
-    .banner.red   .banner-text, .banner.red   .banner-title { color: #7F1D1D; }
-    .banner.blue  .banner-text, .banner.blue  .banner-title { color: #1E40AF; }
-    .banner.orange .banner-text, .banner.orange .banner-title { color: #78350F; }
-
-    /* ── Section Label ── */
-    .section-label {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--gray-800);
-      margin-bottom: 10px;
-    }
-    .section-sub {
-      font-size: 12px;
-      color: var(--gray-400);
-      margin-top: -6px;
-      margin-bottom: 10px;
-    }
-
-    /* ── Choice Cards ── */
-    .choice-card {
-      border-radius: var(--radius);
-      border: 1.5px solid var(--gray-200);
-      background: var(--gray-50);
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      margin-bottom: 10px;
-      transition: all 0.18s;
-    }
-    .choice-card:hover { border-color: var(--gray-300); background: white; }
-    .choice-card.selected {
-      border-color: var(--red);
-      border-width: 2px;
-      background: var(--red-light);
-    }
-    .choice-radio {
-      width: 20px; height: 20px;
-      border-radius: 50%;
-      border: 2px solid var(--gray-300);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.18s;
-    }
-    .choice-card.selected .choice-radio {
-      border-color: var(--red);
-      background: var(--red);
-    }
-    .choice-card.selected .choice-radio::after {
-      content: "";
-      width: 8px; height: 8px;
-      background: white;
-      border-radius: 50%;
-    }
-    .choice-icon { font-size: 22px; flex-shrink: 0; }
-    .choice-label {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gray-800);
-    }
-    .choice-card.selected .choice-label { color: var(--red-dark); }
-    .choice-sub {
-      font-size: 12px;
-      color: var(--gray-400);
-      margin-top: 2px;
-    }
-
-    /* ── Dropdown ── */
-    .dropdown-wrap {
-      border: 1.5px solid var(--gray-200);
-      border-radius: var(--radius);
-      overflow: hidden;
-      background: white;
-      margin-bottom: 20px;
-    }
-    .dropdown-wrap select {
-      width: 100%;
-      padding: 13px 14px;
-      font-size: 14px;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--gray-800);
-      border: none;
-      outline: none;
-      background: transparent;
-      cursor: pointer;
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 40px;
-    }
-
-    /* ── Password Field ── */
-    .input-wrap {
-      position: relative;
-      margin-bottom: 20px;
-    }
-    .input-wrap input {
-      width: 100%;
-      border: 1.5px solid var(--gray-200);
-      border-radius: var(--radius);
-      padding: 13px 44px 13px 14px;
-      font-size: 14px;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--gray-800);
-      background: white;
-      outline: none;
-      transition: border 0.15s;
-    }
-    .input-wrap input:focus { border-color: var(--blue); }
-    .input-wrap .toggle-pw {
-      position: absolute;
-      right: 12px; top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: var(--gray-400);
-      padding: 4px;
-    }
-
-    /* ── Confirm Text Field ── */
-    .confirm-field {
+    .dropdown-wrap, .input-wrap { margin-bottom: 20px; position: relative; }
+    select, input {
       width: 100%;
       border: 1.5px solid var(--gray-200);
       border-radius: var(--radius);
       padding: 13px 14px;
       font-size: 14px;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--gray-800);
-      background: white;
+      font-family: inherit;
       outline: none;
-      letter-spacing: 1.5px;
-      font-weight: 600;
-      transition: border 0.15s;
-      text-transform: uppercase;
+      background: white;
     }
-    .confirm-field:focus { border-color: var(--gray-400); }
-    .confirm-field.valid   { border-color: var(--green); }
-    .confirm-field.invalid:not(:placeholder-shown) { border-color: #FCA5A5; }
+    input:focus { border-color: var(--blue); }
 
-    /* ── Buttons ── */
     .btn {
-      width: 100%;
-      padding: 15px;
-      border-radius: var(--radius);
-      font-size: 15px;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      transition: all 0.18s;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 15px; border-radius: var(--radius);
+      font-size: 15px; font-weight: 700; cursor: pointer; border: none;
+      transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
     }
-    .btn-red {
-      background: var(--red);
-      color: white;
-    }
-    .btn-red:hover:not(:disabled) { background: var(--red-dark); }
-    .btn-red:disabled {
-      background: var(--gray-200);
-      color: var(--gray-400);
-      cursor: not-allowed;
-    }
-    .btn-outline {
-      background: transparent;
-      color: var(--blue);
-      border: 1.5px solid #BFDBFE;
-      margin-top: 12px;
-    }
-    .btn-outline:hover { background: var(--blue-light); }
+    .btn-red { background: var(--red); color: white; }
+    .btn-red:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
+    .btn-outline { background: transparent; color: var(--gray-500); border: 1.5px solid var(--gray-200); margin-top: 12px; }
 
-    /* ── Loading spinner ── */
-    .spinner {
-      width: 20px; height: 20px;
-      border: 2.5px solid rgba(255,255,255,0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── Divider ── */
-    .divider { height: 1px; background: var(--gray-100); margin: 20px 0; }
-
-    /* ── Modal Overlay ── */
-    .overlay {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 999;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .overlay.open { display: flex; }
-
-    .modal {
-      background: white;
-      border-radius: 18px;
-      padding: 24px;
-      max-width: 400px;
-      width: 100%;
-      box-shadow: var(--shadow-lg);
-      animation: modalIn 0.2s ease;
-    }
-    @keyframes modalIn { from { transform: scale(0.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-    .modal-header {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 14px;
-    }
-    .modal-icon-box {
-      width: 38px; height: 38px;
-      border-radius: var(--radius-sm);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
-    .modal-icon-box.red { background: var(--red-light); }
-    .modal-icon-box.orange { background: var(--orange-bg); }
-    .modal-title { font-size: 16px; font-weight: 700; color: var(--gray-900); }
-    .modal-body { font-size: 13px; color: var(--gray-700); line-height: 1.65; }
-    .modal-date-box {
-      background: var(--orange-bg);
-      border: 1px solid var(--orange-border);
-      border-radius: var(--radius-sm);
-      padding: 12px;
-      display: flex; gap: 8px; align-items: flex-start;
-      margin: 12px 0;
-      font-size: 13px;
-      color: #92400E;
-      line-height: 1.5;
-    }
-    .modal-actions {
-      display: flex; gap: 8px; justify-content: flex-end;
-      margin-top: 18px;
-    }
-    .btn-modal-cancel {
-      padding: 9px 16px;
-      background: none;
-      border: none;
-      color: var(--gray-400);
-      font-size: 14px;
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-      border-radius: var(--radius-sm);
-    }
-    .btn-modal-cancel:hover { background: var(--gray-100); }
-    .btn-modal-confirm {
-      padding: 9px 18px;
-      background: var(--red);
-      color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-size: 14px;
-      font-weight: 700;
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .btn-modal-confirm:hover { background: var(--red-dark); }
-    .btn-modal-ok {
-      padding: 9px 20px;
-      background: var(--blue);
-      color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-size: 14px;
-      font-weight: 700;
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-    }
-
-    /* ── Success Screen ── */
-    #success-screen { display: none; }
-    .success-wrap {
+    .footer-credit {
       text-align: center;
-      padding: 40px 20px;
-      max-width: 360px;
-      margin: 0 auto;
+      margin-top: 40px;
+      font-size: 12px;
+      color: var(--gray-400);
     }
-    .success-icon {
-      width: 90px; height: 90px;
-      background: var(--red-light);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 46px;
-      margin: 0 auto 22px;
-    }
-    .success-title { font-size: 22px; font-weight: 700; color: var(--red); margin-bottom: 12px; }
-    .success-msg { font-size: 14px; color: var(--gray-500); line-height: 1.7; margin-bottom: 6px; }
 
-    @media (max-width: 480px) {
-      .page { padding: 16px 12px 60px; }
-    }
+    /* Modals & Overlays */
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; align-items: center; justify-content: center; padding: 20px; }
+    .overlay.open { display: flex; }
+    .modal { background: white; border-radius: 18px; padding: 24px; max-width: 400px; width: 100%; }
+    .modal-date-box { background: var(--orange-bg); border: 1px solid var(--orange-border); border-radius: 8px; padding: 12px; margin: 12px 0; color: #92400E; text-align: center; }
+
+    .spinner { width: 20px; height: 20px; border: 2.5px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    
+    #success-screen { display: none; text-align: center; padding: 60px 20px; }
   </style>
 </head>
 <body>
 
-<!-- AppBar -->
+<div class="logo-header">
+  <img src="logo.png" alt="GoFix Logo" class="app-logo">
+</div>
+
 <div class="appbar">
-  <button class="appbar-back" onclick="history.back()" title="Go back">&#8249;</button>
-  <div class="appbar-title">Delete Account</div>
+  <button class="appbar-back" onclick="history.back()">&#8249;</button>
+  <div class="appbar-title">Account Deletion</div>
   <div class="appbar-spacer"></div>
 </div>
 
-<!-- ═══ MAIN FORM ═══ -->
 <div class="page" id="main-screen">
+  
+  <div class="instruction-card">
+    <h4><span style="font-size:18px;">📱</span> How to delete from App:</h4>
+    <ol>
+      <li>Open the <b>GoFix App</b>.</li>
+      <li>Tap the <b>Sidebar Menu</b> (top-left).</li>
+      <li>Scroll down to the bottom.</li>
+      <li>Click on <b>Delete Account</b> to open this form.</li>
+    </ol>
+  </div>
 
-  <!-- Warning Banner -->
   <div class="banner red">
-    <div class="banner-icon">ℹ️</div>
-    <div>
-      <div class="banner-title">Warning</div>
-      <div class="banner-text">Deleting your account is permanent. All your data, bookings, and profile information will be removed and cannot be recovered.</div>
-    </div>
+    <div class="banner-title">⚠️ Warning</div>
+    <div class="banner-text">Deleting your account is permanent. All data will be removed within 7 working days.</div>
   </div>
 
-  <!-- Dual Account Banner (shown only if user has both roles) -->
-  <div class="banner blue" id="dual-banner" style="display:none;">
-    <div class="banner-icon">ℹ️</div>
-    <div>
-      <div class="banner-title">You have 2 accounts</div>
-      <div class="banner-text">You are registered as both a Customer and a Technician. Which account would you like to delete?</div>
-    </div>
-  </div>
-
-  <!-- Delete Choice (shown only for dual-role users) -->
-  <div id="choice-section" style="display:none;">
-    <div class="section-label">Select what to delete</div>
-
-    <div class="choice-card selected" id="choice-customer" onclick="selectChoice('customer_only')">
-      <div class="choice-radio"></div>
-      <div class="choice-icon">👤</div>
-      <div>
-        <div class="choice-label">Delete Customer Account Only</div>
-        <div class="choice-sub">Keep your Technician profile active</div>
-      </div>
-    </div>
-
-    <div class="choice-card" id="choice-technician" onclick="selectChoice('technician_only')">
-      <div class="choice-radio"></div>
-      <div class="choice-icon">🔧</div>
-      <div>
-        <div class="choice-label">Delete Technician Account Only</div>
-        <div class="choice-sub">Keep your Customer profile active</div>
-      </div>
-    </div>
-
-    <div class="choice-card" id="choice-full" onclick="selectChoice('full_account')">
-      <div class="choice-radio"></div>
-      <div class="choice-icon">🗑️</div>
-      <div>
-        <div class="choice-label">Delete Both Accounts</div>
-        <div class="choice-sub">Completely remove your GoFix account</div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-  </div>
-
-  <!-- Why Leaving -->
   <div class="section-label">Why are you leaving?</div>
   <div class="dropdown-wrap">
-    <select id="reason-select" onchange="onReasonChange()">
+    <select id="reason-select" onchange="checkForm()">
       <option value="" disabled selected>Select a reason</option>
-      <option value="reason_no_longer_need">I no longer need this service</option>
-      <option value="reason_better_alternative">Found a better alternative</option>
-      <option value="reason_privacy">Privacy concerns</option>
-      <option value="reason_too_many_notifications">Too many notifications</option>
-      <option value="reason_app_not_working">App is not working properly</option>
-      <option value="reason_other">Other reason</option>
+      <option value="privacy">Privacy concerns</option>
+      <option value="not_needed">No longer need the service</option>
+      <option value="app_issue">App is not working properly</option>
+      <option value="other">Other</option>
     </select>
   </div>
 
-  <!-- Password -->
-  <div class="section-label">Confirm your password</div>
-  <div class="input-wrap" style="margin-bottom:20px;">
-    <input type="password" id="password-input" placeholder="Enter your password" autocomplete="current-password" oninput="checkForm()" />
-    <button class="toggle-pw" onclick="togglePassword()" type="button" id="pw-toggle">👁️</button>
-  </div>
+  <div class="section-label">Confirm Password</div>
+  <input type="password" id="password-input" placeholder="Enter password" oninput="checkForm()">
 
-  <!-- Type DELETE -->
   <div class="section-label">Type DELETE to confirm</div>
-  <div class="section-sub">Type exactly: DELETE (all capitals)</div>
-  <input type="text"
-    class="confirm-field"
-    id="confirm-input"
-    placeholder="Type DELETE here"
-    maxlength="6"
-    oninput="onConfirmInput(this)"
-    autocomplete="off"
-    style="margin-bottom:28px;"
-  />
+  <div class="section-sub">Type exactly: DELETE</div>
+  <input type="text" id="confirm-input" placeholder="DELETE" oninput="checkForm()" style="text-transform:uppercase;">
 
-  <!-- Delete Button -->
   <button class="btn btn-red" id="delete-btn" disabled onclick="showFinalConfirm()">
-    🗑️ <span id="btn-label">Delete Account</span>
+    🗑️ Delete My GoFix Account
   </button>
 
-  <!-- Cancel -->
-  <button class="btn btn-outline" onclick="history.back()">
-    Cancel, Keep My Account
-  </button>
+  <button class="btn btn-outline" onclick="history.back()">Keep My Account</button>
 
-</div>
-
-<!-- ═══ SUCCESS SCREEN ═══ -->
-<div class="page" id="success-screen">
-  <div class="success-wrap">
-    <div class="success-icon">🗓️</div>
-    <div class="success-title">Deletion Scheduled</div>
-    <p class="success-msg">Your request has been received. Your account will be permanently deleted on:</p>
-    <div class="modal-date-box" style="margin: 14px 0; justify-content: center;">
-      📅 &nbsp;<strong id="final-date"></strong>
-    </div>
-    <p class="success-msg" style="font-size:13px;">You have been signed out of GoFix.</p>
-    <br/>
-    <button class="btn btn-outline" onclick="window.location.href='index.html'" style="margin-top:10px; border-color: #3674C6;">
-      ← Back to Home
-    </button>
+  <div class="footer-credit">
+    Developed by <b>GoFix Team</b>
   </div>
 </div>
 
-<!-- ═══ FINAL CONFIRM MODAL ═══ -->
+<div id="success-screen">
+  <h1 style="color:var(--green); font-size: 50px;">✓</h1>
+  <h2 style="margin: 10px 0;">Deletion Scheduled</h2>
+  <p style="color:var(--gray-500); font-size:14px;">Your request has been received. Your data will be deleted on:</p>
+  <div class="modal-date-box" id="final-date"></div>
+  <button class="btn btn-outline" onclick="window.location.reload()" style="max-width:200px; margin: 20px auto;">Home</button>
+</div>
+
 <div class="overlay" id="confirm-modal">
   <div class="modal">
-    <div class="modal-header">
-      <div class="modal-icon-box red">⚠️</div>
-      <div class="modal-title">Final Confirmation</div>
-    </div>
-    <div class="modal-body" id="confirm-msg">
-      Are you sure you want to permanently delete your account? This action cannot be undone.
-    </div>
-    <div class="modal-actions">
-      <button class="btn-modal-cancel" onclick="closeModal('confirm-modal')">Cancel</button>
-      <button class="btn-modal-confirm" onclick="submitDeletion()">Confirm Delete</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ SCHEDULED DIALOG MODAL ═══ -->
-<div class="overlay" id="scheduled-modal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-icon-box orange">🗓️</div>
-      <div class="modal-title">Deletion Scheduled</div>
-    </div>
-    <div class="modal-date-box">
-      📅 &nbsp;
-      <span>Permanent deletion on:<br/><strong id="modal-date-display"></strong></span>
-    </div>
-    <div class="modal-body" id="scheduled-msg"></div>
-    <div class="modal-actions">
-      <button class="btn-modal-ok" onclick="goToSuccess()">OK</button>
+    <h3 style="margin-bottom:10px;">Are you sure?</h3>
+    <p style="font-size:13px; color:var(--gray-600); line-height:1.6;">This will permanently remove your GoFix profile and service history. This cannot be undone.</p>
+    <div style="display:flex; gap:10px; margin-top:20px;">
+      <button class="btn btn-outline" style="margin:0;" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-red" style="padding:10px;" onclick="submitDeletion()">Confirm</button>
     </div>
   </div>
 </div>
 
 <script>
-  // ── State ──────────────────────────────────────────────────────────────
-  var deleteChoice = 'full_account';
-  var isDualRole   = false;
-
-  // ── Simulate dual-role check (set to true to see dual-account UI) ──────
-  // In real app this would come from Firebase; toggle here for demo:
-  var simulateDualRole = false;
-
-  window.onload = function() {
-    if (simulateDualRole) {
-      isDualRole = true;
-      document.getElementById('dual-banner').style.display = 'flex';
-      document.getElementById('choice-section').style.display = 'block';
-      deleteChoice = 'customer_only';
-      updateBtnLabel();
-    }
-  };
-
-  // ── Choice selection ───────────────────────────────────────────────────
-  function selectChoice(val) {
-    deleteChoice = val;
-    ['customer_only', 'technician_only', 'full_account'].forEach(function(v) {
-      var id = v === 'customer_only' ? 'choice-customer'
-             : v === 'technician_only' ? 'choice-technician'
-             : 'choice-full';
-      document.getElementById(id).classList.toggle('selected', v === val);
-    });
-    updateBtnLabel();
-    checkForm();
-  }
-
-  function updateBtnLabel() {
-    var labels = {
-      'customer_only':   'Delete Customer Account',
-      'technician_only': 'Delete Technician Account',
-      'full_account':    'Delete Account'
-    };
-    document.getElementById('btn-label').textContent = labels[deleteChoice] || 'Delete Account';
-  }
-
-  // ── Reason dropdown ────────────────────────────────────────────────────
-  function onReasonChange() { checkForm(); }
-
-  // ── Password toggle ────────────────────────────────────────────────────
-  function togglePassword() {
-    var inp = document.getElementById('password-input');
-    var btn = document.getElementById('pw-toggle');
-    if (inp.type === 'password') {
-      inp.type = 'text';
-      btn.textContent = '🙈';
-    } else {
-      inp.type = 'password';
-      btn.textContent = '👁️';
-    }
-  }
-
-  // ── Confirm input styling ──────────────────────────────────────────────
-  function onConfirmInput(el) {
-    el.classList.remove('valid', 'invalid');
-    if (el.value.toUpperCase() === 'DELETE') {
-      el.classList.add('valid');
-    } else if (el.value.length > 0) {
-      el.classList.add('invalid');
-    }
-    checkForm();
-  }
-
-  // ── Enable/disable delete button ───────────────────────────────────────
   function checkForm() {
-    var reason   = document.getElementById('reason-select').value;
+    var reason = document.getElementById('reason-select').value;
     var password = document.getElementById('password-input').value.trim();
-    var confirm  = document.getElementById('confirm-input').value.trim().toUpperCase();
-    var ok = reason !== '' && password !== '' && confirm === 'DELETE';
-    document.getElementById('delete-btn').disabled = !ok;
+    var confirm = document.getElementById('confirm-input').value.trim().toUpperCase();
+    document.getElementById('delete-btn').disabled = !(reason && password && confirm === 'DELETE');
   }
 
-  // ── Compute deletion date (7 working days) ─────────────────────────────
-  function computeDeletionDate() {
-    var d = new Date();
-    var added = 0;
-    while (added < 7) {
-      d.setDate(d.getDate() + 1);
-      if (d.getDay() !== 0 && d.getDay() !== 6) added++;
-    }
-    return d;
-  }
-
-  function formatDate(d) {
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
-  }
-
-  // ── Show final confirm dialog ──────────────────────────────────────────
   function showFinalConfirm() {
-    var msgs = {
-      'customer_only':   'This will permanently delete your Customer account only. Your Technician profile will remain active.',
-      'technician_only': 'This will permanently delete your Technician account only. Your Customer profile will remain active.',
-      'full_account':    'This will permanently delete your entire GoFix account including all data. This action cannot be undone.'
-    };
-    document.getElementById('confirm-msg').textContent = msgs[deleteChoice];
     document.getElementById('confirm-modal').classList.add('open');
   }
 
-  // ── Submit deletion ────────────────────────────────────────────────────
-  function submitDeletion() {
-    closeModal('confirm-modal');
+  function closeModal() {
+    document.getElementById('confirm-modal').classList.remove('open');
+  }
 
-    // Show loading
+  function submitDeletion() {
+    closeModal();
     var btn = document.getElementById('delete-btn');
     btn.disabled = true;
     btn.innerHTML = '<div class="spinner"></div>';
 
     setTimeout(function() {
-      var deletionDate = computeDeletionDate();
-      var formatted    = formatDate(deletionDate);
-
-      var msgs = {
-        'customer_only':   'Your Customer account has been scheduled for deletion. You can still log in as a Technician.',
-        'technician_only': 'Your Technician account has been scheduled for deletion. You can still log in as a Customer.',
-        'full_account':    'Your entire GoFix account has been scheduled for deletion. You have been signed out.'
-      };
-
-      document.getElementById('modal-date-display').textContent = formatted;
-      document.getElementById('scheduled-msg').textContent = msgs[deleteChoice];
-      document.getElementById('final-date').textContent = formatted;
-
-      document.getElementById('scheduled-modal').classList.add('open');
-    }, 1800);
+      var d = new Date();
+      var added = 0;
+      while (added < 7) {
+        d.setDate(d.getDate() + 1);
+        if (d.getDay() !== 0 && d.getDay() !== 6) added++;
+      }
+      var dateStr = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      
+      document.getElementById('main-screen').style.display = 'none';
+      document.querySelector('.logo-header').style.display = 'none';
+      document.querySelector('.appbar').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'block';
+      document.getElementById('final-date').innerText = '📅 ' + dateStr;
+    }, 2000);
   }
-
-  // ── Close modal ────────────────────────────────────────────────────────
-  function closeModal(id) {
-    document.getElementById(id).classList.remove('open');
-    // Reset delete btn if confirm modal cancelled
-    if (id === 'confirm-modal') {
-      var btn = document.getElementById('delete-btn');
-      btn.disabled = false;
-      btn.innerHTML = '🗑️ <span id="btn-label">' + (document.getElementById('btn-label') ? document.getElementById('btn-label').textContent : 'Delete Account') + '</span>';
-      updateBtnLabel();
-    }
-  }
-
-  // ── Go to success screen ───────────────────────────────────────────────
-  function goToSuccess() {
-    closeModal('scheduled-modal');
-    document.getElementById('main-screen').style.display    = 'none';
-    document.getElementById('success-screen').style.display = 'block';
-  }
-
-  // Close overlay on backdrop click
-  document.querySelectorAll('.overlay').forEach(function(el) {
-    el.addEventListener('click', function(e) {
-      if (e.target === el) closeModal(el.id);
-    });
-  });
 </script>
 
 </body>
