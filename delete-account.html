@@ -30,7 +30,6 @@
       --gray-800:   #1F2937;
       --gray-900:   #111827;
       --radius:     12px;
-      --radius-sm:  8px;
     }
 
     body {
@@ -43,14 +42,13 @@
     /* ── Logo Section ── */
     .logo-header {
       text-align: center;
-      padding: 30px 20px 10px;
+      padding: 40px 20px 20px;
       background: white;
     }
     .app-logo {
-      width: 100px; /* Thora bara kiya hai visibility ke liye */
+      width: 120px; /* Logo size standard rakha hai */
       height: auto;
       object-fit: contain;
-      border-radius: 15px;
     }
 
     /* ── AppBar ── */
@@ -59,95 +57,65 @@
       border-bottom: 1px solid var(--gray-200);
       display: flex;
       align-items: center;
-      gap: 12px;
       padding: 0 20px;
       height: 60px;
       position: sticky;
       top: 0;
       z-index: 100;
     }
-    .appbar-back {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: none;
-      background: var(--gray-100);
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      color: var(--gray-800);
-    }
     .appbar-title {
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--gray-900);
       flex: 1;
       text-align: center;
     }
-    .appbar-spacer { width: 36px; }
 
-    /* ── Instructions ── */
+    /* ── Layout ── */
+    .page { max-width: 500px; margin: 0 auto; padding: 20px 16px 60px; }
+
     .instruction-card {
       background: var(--blue-light);
       border: 1px solid var(--blue-border);
       padding: 16px;
       border-radius: var(--radius);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
-    .instruction-card h4 {
-      color: var(--blue);
-      font-size: 14px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .instruction-card ol {
-      padding-left: 20px;
-      font-size: 13px;
-      color: #1E40AF;
-      line-height: 1.6;
-    }
-
-    /* ── Layout ── */
-    .page { max-width: 520px; margin: 0 auto; padding: 20px 16px 60px; }
+    .instruction-card h4 { color: var(--blue); font-size: 14px; margin-bottom: 8px; }
+    .instruction-card ol { padding-left: 20px; font-size: 13px; color: #1E40AF; line-height: 1.6; }
 
     .banner {
       border-radius: var(--radius);
       padding: 14px 16px;
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      border: 1px solid;
+      margin-bottom: 24px;
+      border: 1px solid var(--red-border);
+      background: var(--red-light);
+      color: #7F1D1D;
     }
-    .banner.red { background: var(--red-light); border-color: var(--red-border); color: #7F1D1D; }
-    .banner-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
-    .banner-text { font-size: 13px; line-height: 1.5; }
+    .banner-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+    .banner-text { font-size: 13px; }
 
-    .section-label { font-size: 15px; font-weight: 700; color: var(--gray-800); margin-bottom: 10px; margin-top: 20px; }
-    .section-sub { font-size: 12px; color: var(--gray-400); margin-top: -6px; margin-bottom: 10px; }
-
-    .dropdown-wrap, .input-wrap { margin-bottom: 20px; position: relative; }
+    .section-label { font-size: 14px; font-weight: 700; color: var(--gray-700); margin-bottom: 8px; margin-top: 20px; }
+    
     select, input {
       width: 100%;
       border: 1.5px solid var(--gray-200);
       border-radius: var(--radius);
-      padding: 13px 14px;
+      padding: 12px 14px;
       font-size: 14px;
-      font-family: inherit;
       outline: none;
       background: white;
+      margin-bottom: 16px;
     }
-    input:focus { border-color: var(--blue); }
 
     .btn {
-      width: 100%; padding: 15px; border-radius: var(--radius);
+      width: 100%; padding: 14px; border-radius: var(--radius);
       font-size: 15px; font-weight: 700; cursor: pointer; border: none;
-      transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: 0.2s; margin-top: 10px;
     }
     .btn-red { background: var(--red); color: white; }
     .btn-red:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
-    .btn-outline { background: transparent; color: var(--gray-500); border: 1.5px solid var(--gray-200); margin-top: 12px; }
-
+    
     .footer-credit {
       text-align: center;
       margin-top: 40px;
@@ -155,132 +123,75 @@
       color: var(--gray-400);
     }
 
-    /* Modals & Overlays */
-    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; align-items: center; justify-content: center; padding: 20px; }
-    .overlay.open { display: flex; }
-    .modal { background: white; border-radius: 18px; padding: 24px; max-width: 400px; width: 100%; }
-    .modal-date-box { background: var(--orange-bg); border: 1px solid var(--orange-border); border-radius: 8px; padding: 12px; margin: 12px 0; color: #92400E; text-align: center; }
-
-    .spinner { width: 20px; height: 20px; border: 2.5px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    
     #success-screen { display: none; text-align: center; padding: 60px 20px; }
+    .modal-date-box { background: var(--orange-bg); border: 1px solid var(--orange-border); border-radius: 8px; padding: 12px; margin: 15px 0; color: #92400E; }
   </style>
 </head>
 <body>
 
 <div class="logo-header">
-  <img src="IMG_8911.PNG" alt="GoFix Logo" class="app-logo">
-</div>
-
-<div class="appbar">
-  <button class="appbar-back" onclick="history.back()">&#8249;</button>
-  <div class="appbar-title">Account Deletion</div>
-  <div class="appbar-spacer"></div>
+  <img src="https://raw.githubusercontent.com/sadiahamid/gofix-policies/main/IMG_8911.PNG" 
+       alt="GoFix Logo" 
+       class="app-logo">
+  <h2 style="margin-top:15px; color:var(--gray-800);">Account Deletion</h2>
 </div>
 
 <div class="page" id="main-screen">
   
   <div class="instruction-card">
-    <h4><span style="font-size:18px;">📱</span> How to delete from App:</h4>
+    <h4>📱 How to delete from App:</h4>
     <ol>
       <li>Open the <b>GoFix App</b>.</li>
-      <li>Tap the <b>Sidebar Menu</b> (top-left).</li>
-      <li>Scroll down to the bottom.</li>
-      <li>Click on <b>Delete Account</b> to open this form.</li>
+      <li>Open the <b>Sidebar Menu</b>.</li>
+      <li>Click on <b>Delete Account</b>.</li>
     </ol>
   </div>
 
-  <div class="banner red">
+  <div class="banner">
     <div class="banner-title">⚠️ Warning</div>
-    <div class="banner-text">Deleting your account is permanent. All data will be removed within 7 working days.</div>
+    <p class="banner-text">Deleting your account is permanent. All your data and history will be removed within 7 working days.</p>
   </div>
 
-  <div class="section-label">Why are you leaving?</div>
-  <div class="dropdown-wrap">
-    <select id="reason-select" onchange="checkForm()">
-      <option value="" disabled selected>Select a reason</option>
-      <option value="privacy">Privacy concerns</option>
-      <option value="not_needed">No longer need the service</option>
-      <option value="app_issue">App is not working properly</option>
-      <option value="other">Other</option>
-    </select>
-  </div>
-
-  <div class="section-label">Confirm Password</div>
-  <input type="password" id="password-input" placeholder="Enter password" oninput="checkForm()">
+  <div class="section-label">Reason for leaving</div>
+  <select id="reason-select" onchange="checkForm()">
+    <option value="" disabled selected>Select a reason</option>
+    <option value="privacy">Privacy concerns</option>
+    <option value="not_needed">No longer need services</option>
+    <option value="other">Other</option>
+  </select>
 
   <div class="section-label">Type DELETE to confirm</div>
-  <div class="section-sub">Type exactly: DELETE</div>
   <input type="text" id="confirm-input" placeholder="DELETE" oninput="checkForm()" style="text-transform:uppercase;">
 
-  <button class="btn btn-red" id="delete-btn" disabled onclick="showFinalConfirm()">
-    🗑️ Delete My GoFix Account
+  <button class="btn btn-red" id="delete-btn" disabled onclick="submitDeletion()">
+    Delete My Account
   </button>
 
-  <button class="btn btn-outline" onclick="history.back()">Keep My Account</button>
-
-  <div class="footer-credit">
-    Developed by <b>GoFix Team</b>
-  </div>
+  <div class="footer-credit">Developed by <b>GoFix Team</b></div>
 </div>
 
 <div id="success-screen">
-  <h1 style="color:var(--green); font-size: 50px;">✓</h1>
-  <h2 style="margin: 10px 0;">Deletion Scheduled</h2>
-  <p style="color:var(--gray-500); font-size:14px;">Your request has been received. Your data will be deleted on:</p>
+  <h1 style="color:var(--green); font-size: 48px;">✓</h1>
+  <h2>Request Received</h2>
+  <p style="color:var(--gray-500);">Your account will be deleted on:</p>
   <div class="modal-date-box" id="final-date"></div>
-  <button class="btn btn-outline" onclick="window.location.reload()" style="max-width:200px; margin: 20px auto;">Home</button>
-</div>
-
-<div class="overlay" id="confirm-modal">
-  <div class="modal">
-    <h3 style="margin-bottom:10px;">Are you sure?</h3>
-    <p style="font-size:13px; color:var(--gray-600); line-height:1.6;">This will permanently remove your GoFix profile and service history. This cannot be undone.</p>
-    <div style="display:flex; gap:10px; margin-top:20px;">
-      <button class="btn btn-outline" style="margin:0;" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-red" style="padding:10px;" onclick="submitDeletion()">Confirm</button>
-    </div>
-  </div>
 </div>
 
 <script>
   function checkForm() {
     var reason = document.getElementById('reason-select').value;
-    var password = document.getElementById('password-input').value.trim();
     var confirm = document.getElementById('confirm-input').value.trim().toUpperCase();
-    document.getElementById('delete-btn').disabled = !(reason && password && confirm === 'DELETE');
-  }
-
-  function showFinalConfirm() {
-    document.getElementById('confirm-modal').classList.add('open');
-  }
-
-  function closeModal() {
-    document.getElementById('confirm-modal').classList.remove('open');
+    document.getElementById('delete-btn').disabled = !(reason && confirm === 'DELETE');
   }
 
   function submitDeletion() {
-    closeModal();
-    var btn = document.getElementById('delete-btn');
-    btn.disabled = true;
-    btn.innerHTML = '<div class="spinner"></div>';
-
-    setTimeout(function() {
-      var d = new Date();
-      var added = 0;
-      while (added < 7) {
-        d.setDate(d.getDate() + 1);
-        if (d.getDay() !== 0 && d.getDay() !== 6) added++;
-      }
-      var dateStr = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-      
-      document.getElementById('main-screen').style.display = 'none';
-      document.querySelector('.logo-header').style.display = 'none';
-      document.querySelector('.appbar').style.display = 'none';
-      document.getElementById('success-screen').style.display = 'block';
-      document.getElementById('final-date').innerText = '📅 ' + dateStr;
-    }, 2000);
+    var d = new Date();
+    d.setDate(d.getDate() + 7); // Simplified 7 days
+    var dateStr = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    
+    document.getElementById('main-screen').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+    document.getElementById('final-date').innerText = '📅 ' + dateStr;
   }
 </script>
 
