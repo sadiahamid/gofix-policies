@@ -3,83 +3,199 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GoFix – Account Deletion</title>
+  <title>GoFix – Delete Account</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --gofix-blue: #3B82F6; /* Aapke logo wala blue shade */
+      --red:        #DC2626;
+      --red-dark:   #B91C1C;
+      --red-light:  #FEF2F2;
+      --red-border: #FECACA;
+      --blue:       #2563EB;
+      --blue-light: #EFF6FF;
+      --blue-border:#BFDBFE;
+      --orange:     #F97316;
+      --orange-bg:  #FFF7ED;
+      --orange-border: #FED7AA;
+      --green:      #16A34A;
+      --gray-50:    #F9FAFB;
+      --gray-100:   #F3F4F6;
+      --gray-200:   #E5E7EB;
+      --gray-300:   #D1D5DB;
+      --gray-400:   #9CA3AF;
+      --gray-500:   #6B7280;
+      --gray-700:   #374151;
+      --gray-800:   #1F2937;
       --gray-900:   #111827;
-      --radius:     16px;
+      --radius:     12px;
     }
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: #FFFFFF; /* Pure White Background */
+      background: #F5F7FA;
       color: var(--gray-900);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 50px;
+      min-height: 100vh;
     }
 
-    /* ── Logo Container (Fixing the White Hammer issue) ── */
-    .logo-box {
-      background: var(--gofix-blue); /* Blue background taake white hammer nazar aaye */
-      width: 100px;
-      height: 100px;
-      border-radius: 22%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-      margin-bottom: 20px;
+    /* ── Logo Section ── */
+    .logo-header {
+      text-align: center;
+      padding: 40px 20px 20px;
+      background: white;
     }
-
     .app-logo {
-      width: 70px;
+      width: 120px; /* Logo size standard rakha hai */
       height: auto;
+      object-fit: contain;
     }
 
-    h1 {
-      font-size: 24px;
+    /* ── AppBar ── */
+    .appbar {
+      background: white;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .appbar-title {
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .page-content {
-      max-width: 450px;
-      width: 90%;
+      color: var(--gray-900);
+      flex: 1;
       text-align: center;
     }
 
-    .status-badge {
-      background: #F3F4F6;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-      color: #6B7280;
-      display: inline-block;
-      margin-bottom: 30px;
+    /* ── Layout ── */
+    .page { max-width: 500px; margin: 0 auto; padding: 20px 16px 60px; }
+
+    .instruction-card {
+      background: var(--blue-light);
+      border: 1px solid var(--blue-border);
+      padding: 16px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
     }
+    .instruction-card h4 { color: var(--blue); font-size: 14px; margin-bottom: 8px; }
+    .instruction-card ol { padding-left: 20px; font-size: 13px; color: #1E40AF; line-height: 1.6; }
+
+    .banner {
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      border: 1px solid var(--red-border);
+      background: var(--red-light);
+      color: #7F1D1D;
+    }
+    .banner-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+    .banner-text { font-size: 13px; }
+
+    .section-label { font-size: 14px; font-weight: 700; color: var(--gray-700); margin-bottom: 8px; margin-top: 20px; }
+    
+    select, input {
+      width: 100%;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      font-size: 14px;
+      outline: none;
+      background: white;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      width: 100%; padding: 14px; border-radius: var(--radius);
+      font-size: 15px; font-weight: 700; cursor: pointer; border: none;
+      transition: 0.2s; margin-top: 10px;
+    }
+    .btn-red { background: var(--red); color: white; }
+    .btn-red:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
+    
+    .footer-credit {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    #success-screen { display: none; text-align: center; padding: 60px 20px; }
+    .modal-date-box { background: var(--orange-bg); border: 1px solid var(--orange-border); border-radius: 8px; padding: 12px; margin: 15px 0; color: #92400E; }
   </style>
 </head>
 <body>
 
-  <div class="logo-box">
-    <img src="IMG_8911.PNG" alt="GoFix Logo" class="app-logo">
+<div class="logo-header">
+  <img src="https://raw.githubusercontent.com/sadiahamid/gofix-policies/main/IMG_8799.PNG" 
+       alt="GoFix Logo" 
+       class="app-logo">
+  <h2 style="margin-top:15px; color:var(--gray-800);">Account Deletion</h2>
+</div>
+
+<div class="page" id="main-screen">
+  
+  <div class="instruction-card">
+    <h4>📱 How to delete from App:</h4>
+    <ol>
+      <li>Open the <b>GoFix App</b>.</li>
+      <li>Tap the <b>Sidebar Menu</b> (top-left).</li>
+      <li>Scroll down to the bottom.</li>
+      <li>Click on <b>Delete Account</b> to open this form.</li>
+    </ol>
   </div>
 
-  <div class="page-content">
-    <h1>Account Deletion</h1>
-    <div class="status-badge">GoFix – Home Services</div>
-    
-    <p style="color: #4B5563; line-height: 1.6; font-size: 15px;">
-      We are sorry to see you go. Once you submit this request, your account and all associated data will be permanently removed within 7 working days.
-    </p>
-    </p>
+  <div class="banner">
+    <div class="banner-title">⚠️ Warning</div>
+    <p class="banner-text">Deleting your account is permanent. All your data and history will be removed within 7 working days.</p>
   </div>
+
+  <div class="section-label">Reason for leaving</div>
+  <select id="reason-select" onchange="checkForm()">
+    <option value="" disabled selected>Select a reason</option>
+    <option value="privacy">Privacy concerns</option>
+    <option value="not_needed">No longer need services</option>
+    <option value="other">Other</option>
+  </select>
+
+  <div class="section-label">Type DELETE to confirm</div>
+  <input type="text" id="confirm-input" placeholder="DELETE" oninput="checkForm()" style="text-transform:uppercase;">
+
+  <button class="btn btn-red" id="delete-btn" disabled onclick="submitDeletion()">
+    Delete My Account
+  </button>
+
+  <div class="footer-credit">Developed by <b>GoFix Team</b></div>
+</div>
+
+<div id="success-screen">
+  <h1 style="color:var(--green); font-size: 48px;">✓</h1>
+  <h2>Request Received</h2>
+  <p style="color:var(--gray-500);">Your account will be deleted on:</p>
+  <div class="modal-date-box" id="final-date"></div>
+</div>
+
+<script>
+  function checkForm() {
+    var reason = document.getElementById('reason-select').value;
+    var confirm = document.getElementById('confirm-input').value.trim().toUpperCase();
+    document.getElementById('delete-btn').disabled = !(reason && confirm === 'DELETE');
+  }
+
+  function submitDeletion() {
+    var d = new Date();
+    d.setDate(d.getDate() + 7); // Simplified 7 days
+    var dateStr = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    
+    document.getElementById('main-screen').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+    document.getElementById('final-date').innerText = '📅 ' + dateStr;
+  }
+</script>
 
 </body>
 </html>
+ya dekho thk ha na
