@@ -6,7 +6,6 @@
   <title>GoFix – Delete Account</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-    /* CSS yahan fix kar diya hai */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
@@ -15,10 +14,6 @@
       --red-border: #FECACA;
       --blue: #2563EB;
       --blue-light: #EFF6FF;
-      --blue-border: #BFDBFE;
-      --orange-bg: #FFF7ED;
-      --orange-border: #FED7AA;
-      --green: #16A34A;
       --gray-200: #E5E7EB;
       --gray-400: #9CA3AF;
       --gray-500: #6B7280;
@@ -31,77 +26,54 @@
       font-family: 'DM Sans', sans-serif;
       background: #F5F7FA;
       color: var(--gray-900);
-      line-height: 1.5;
     }
 
-    .logo-header {
-      text-align: center;
-      padding: 30px 20px;
-      background: white;
-      border-bottom: 1px solid var(--gray-200);
-    }
+    .logo-header { text-align: center; padding: 30px 20px; background: white; border-bottom: 1px solid var(--gray-200); }
+    .app-logo { width: 100px; height: auto; }
 
-    .app-logo {
-      width: 100px;
-      height: auto;
-    }
-
-    .page {
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .instruction-card {
-      background: var(--blue-light);
-      border: 1px solid var(--blue-border);
-      padding: 16px;
-      border-radius: var(--radius);
-      margin-bottom: 20px;
-    }
-
-    .banner {
-      border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 24px;
-      border: 1px solid var(--red-border);
-      background: var(--red-light);
-      color: #7F1D1D;
-    }
+    .page { max-width: 480px; margin: 0 auto; padding: 20px; }
 
     .section-label {
       font-size: 14px;
       font-weight: 700;
-      margin: 15px 0 8px;
+      margin: 18px 0 8px;
       color: var(--gray-700);
     }
+
+    .input-group { position: relative; width: 100%; }
 
     select, input {
       width: 100%;
       border: 1.5px solid var(--gray-200);
       border-radius: var(--radius);
-      padding: 12px;
+      padding: 14px;
       font-size: 16px;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
       background: white;
+      outline: none;
+      transition: border-color 0.2s;
     }
 
+    input:focus { border-color: var(--blue); }
+
     .btn {
-      width: 100%;
-      padding: 15px;
-      border-radius: var(--radius);
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      margin-top: 10px;
+      width: 100%; padding: 16px; border-radius: var(--radius);
+      font-size: 16px; font-weight: 700; cursor: pointer; border: none;
+      margin-top: 15px; transition: 0.3s;
     }
 
     .btn-red { background: var(--red); color: white; }
     .btn-red:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
 
-    #success-screen { display: none; text-align: center; padding: 50px 20px; }
-    .modal-date-box { background: var(--orange-bg); border: 1px solid var(--orange-border); border-radius: 8px; padding: 12px; margin-top: 15px; color: #92400E; }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--blue);
+      color: var(--blue);
+      margin-top: 10px;
+    }
+
+    /* Success Screen */
+    #success-screen { display: none; text-align: center; padding: 60px 20px; }
   </style>
 </head>
 <body>
@@ -113,54 +85,60 @@
   </div>
 
   <div class="page">
-    <div class="instruction-card">
-      <h4 style="color:var(--blue); margin-bottom:5px;">📱 Steps:</h4>
-      <ol style="padding-left: 20px; font-size: 14px;">
-        <li>Open GoFix App</li>
-        <li>Go to Sidebar Menu</li>
-        <li>Tap Delete Account</li>
-      </ol>
-    </div>
-
-    <div class="banner">
-      <strong>⚠️ Warning:</strong>
-      <p style="font-size: 13px;">This action is permanent. Data will be removed in 7 days.</p>
-    </div>
-
-    <div class="section-label">Reason</div>
+    <div class="section-label">Why are you leaving?</div>
     <select id="reason-select" onchange="checkForm()">
       <option value="" disabled selected>Select a reason</option>
-      <option value="privacy">Privacy</option>
+      <option value="privacy">Privacy concerns</option>
+      <option value="expensive">Too expensive</option>
+      <option value="not_needed">No longer need services</option>
       <option value="other">Other</option>
     </select>
 
-    <div class="section-label">Type DELETE</div>
-    <input type="text" id="confirm-input" placeholder="DELETE" oninput="checkForm()">
+    <div class="section-label">Confirm your password</div>
+    <div class="input-group">
+      <input type="password" id="password-input" placeholder="Enter your password" oninput="checkForm()">
+    </div>
 
-    <button class="btn btn-red" id="delete-btn" disabled onclick="submitDeletion()">Delete My Account</button>
+    <div class="section-label">Type DELETE to confirm</div>
+    <input type="text" id="confirm-input" placeholder="TYPE DELETE HERE" oninput="checkForm()">
+
+    <button class="btn btn-red" id="delete-btn" disabled onclick="submitDeletion()">
+      🗑️ Delete Account
+    </button>
+
+    <button class="btn btn-outline" onclick="history.back()">
+      Cancel, Keep My Account
+    </button>
   </div>
 </div>
 
 <div id="success-screen">
-  <h1 style="color:var(--green); font-size: 50px;">✓</h1>
-  <h2>Done!</h2>
-  <p>Account scheduled for deletion on:</p>
-  <div class="modal-date-box" id="final-date"></div>
+  <h1 style="color:var(--green); font-size: 60px;">✓</h1>
+  <h2>Request Received</h2>
+  <p style="color:var(--gray-500); margin-top: 10px;">Your account is scheduled for deletion.</p>
 </div>
 
 <script>
   function checkForm() {
     const reason = document.getElementById('reason-select').value;
-    const confirm = document.getElementById('confirm-input').value.trim().toUpperCase();
-    document.getElementById('delete-btn').disabled = !(reason && confirm === 'DELETE');
+    const password = document.getElementById('password-input').value.trim();
+    const confirmText = document.getElementById('confirm-input').value.trim().toUpperCase();
+    const deleteBtn = document.getElementById('delete-btn');
+
+    // Button enable tab hoga jab:
+    // 1. Reason select ho
+    // 2. Password field khaali na ho
+    // 3. Confirm text bilkul "DELETE" ho
+    if (reason !== "" && password.length > 0 && confirmText === "DELETE") {
+      deleteBtn.disabled = false;
+    } else {
+      deleteBtn.disabled = true;
+    }
   }
 
   function submitDeletion() {
-    const d = new Date();
-    d.setDate(d.getDate() + 7);
     document.getElementById('main-screen').style.display = 'none';
     document.getElementById('success-screen').style.display = 'block';
-    document.getElementById('final-date').innerText = d.toDateString();
   }
 </script>
 
