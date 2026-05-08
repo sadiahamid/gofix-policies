@@ -9,59 +9,129 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --gofix-blue: #3B82F6; /* Aapke logo wala blue shade */
+      --gofix-blue: #3B82F6;
       --gray-900:   #111827;
-      --radius:     16px;
+      --gray-500:   #6B7280;
+      --gray-100:   #F3F4F6;
+      --danger:     #EF4444;
+      --radius:     12px;
     }
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: #FFFFFF; /* Pure White Background */
+      background: #FFFFFF;
       color: var(--gray-900);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-top: 50px;
+      padding: 50px 20px;
     }
 
-    /* ── Logo Container (Fixing the White Hammer issue) ── */
     .logo-box {
-      background: var(--gofix-blue); /* Blue background taake white hammer nazar aaye */
-      width: 100px;
-      height: 100px;
+      background: var(--gofix-blue);
+      width: 80px;
+      height: 80px;
       border-radius: 22%;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-      margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+      margin-bottom: 24px;
     }
 
     .app-logo {
-      width: 70px;
+      width: 55px;
       height: auto;
     }
 
-    h1 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
     .page-content {
-      max-width: 450px;
-      width: 90%;
+      max-width: 400px;
+      width: 100%;
       text-align: center;
     }
 
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
     .status-badge {
-      background: #F3F4F6;
-      padding: 6px 12px;
+      background: var(--gray-100);
+      padding: 6px 14px;
       border-radius: 20px;
       font-size: 13px;
-      color: #6B7280;
+      color: var(--gray-500);
       display: inline-block;
+      margin-bottom: 24px;
+    }
+
+    .description {
+      color: #4B5563;
+      line-height: 1.6;
+      font-size: 15px;
       margin-bottom: 30px;
+    }
+
+    /* ── Form Styling ── */
+    form {
+      text-align: left;
+      background: #fdfdfd;
+      padding: 24px;
+      border: 1px solid #eee;
+      border-radius: var(--radius);
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--gray-900);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #D1D5DB;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: var(--gofix-blue);
+    }
+
+    .delete-btn {
+      width: 100%;
+      background: var(--danger);
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: opacity 0.2s;
+    }
+
+    .delete-btn:hover {
+      opacity: 0.9;
+    }
+
+    .warning-text {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-top: 15px;
+      text-align: center;
     }
   </style>
 </head>
@@ -72,13 +142,41 @@
   </div>
 
   <div class="page-content">
-    <h1>Account Deletion</h1>
+    <h1>Delete Account</h1>
     <div class="status-badge">GoFix – Home Services</div>
     
-    <p style="color: #4B5563; line-height: 1.6; font-size: 15px;">
-      Aapka account delete karne ki darkhwast yahan se puri ki ja sakti hai. 
-      Tamam data 7 working days ke andar khatam kar diya jayega.
+    <p class="description">
+      We are sorry to see you go. Once you submit this request, your account and all associated data will be permanently removed within 7 working days.
     </p>
+
+    <form action="#" method="POST">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="reason">Reason for leaving</label>
+        <select id="reason" name="reason">
+          <option value="">Select a reason (Optional)</option>
+          <option value="no-longer-needed">No longer need the services</option>
+          <option value="privacy">Privacy concerns</option>
+          <option value="technical-issues">Technical issues</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <button type="submit" class="delete-btn">Confirm Deletion</button>
+      
+      <p class="warning-text">
+        This action cannot be undone. Please make sure you want to delete your account.
+      </p>
+    </form>
   </div>
 
 </body>
